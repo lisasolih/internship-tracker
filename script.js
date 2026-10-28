@@ -1,6 +1,8 @@
 let applications = JSON.parse(localStorage.getItem('applications')) || [];
 let currentFilter = 'All';
 
+const STATUSES = ['Applied', 'Phone Screen', 'Interview', 'Offer', 'Rejected'];
+
 const form = document.querySelector('form');
 const companyInput = document.querySelector('input[placeholder="Company name"]');
 const roleInput = document.querySelector('input[placeholder="Role"]');
@@ -29,6 +31,14 @@ applicationsList.addEventListener('click', function(e) {
     if (e.target.classList.contains('delete-btn')) {
         const index = e.target.getAttribute('data-index');
         applications.splice(index, 1);
+        renderApplications();
+    }
+});
+
+applicationsList.addEventListener('change', function(e) {
+    if (e.target.classList.contains('status-select')) {
+        const index = e.target.getAttribute('data-index');
+        applications[index].status = e.target.value;
         renderApplications();
     }
 });
@@ -86,12 +96,23 @@ function renderApplications() {
                 ${app.notes ? `<span style="color:#999; font-size:12px;">📝 ${app.notes}</span>` : ''}
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span class="status-badge ${getBadgeClass(app.status)}">${app.status}</span>
+                <select class="status-select ${getBadgeClass(app.status)}" data-index="${applications.indexOf(app)}">
+                    ${STATUSES.map(s => `<option value="${s}" ${s === app.status ? 'selected' : ''}>${s}</option>`).join('')}
+                </select>
                 <button class="delete-btn" data-index="${applications.indexOf(app)}">✕</button>
             </div>
         `;
         applicationsList.appendChild(card);
     });
+
+    if (filtered.length === 0) {
+        const empty = document.createElement('p');
+        empty.className = 'empty-state';
+        empty.textContent = currentFilter === 'All'
+            ? 'No applications yet. Add one above!'
+            : `No ${currentFilter} applications.`;
+        applicationsList.appendChild(empty);
+    }
 
     localStorage.setItem('applications', JSON.stringify(applications));
 }
