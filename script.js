@@ -94,6 +94,12 @@ function sortApplications(list) {
     return sorted;
 }
 
+function escapeHTML(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
 function renderApplications() {
     updateStats();
 
@@ -111,10 +117,10 @@ function renderApplications() {
         card.className = 'app-card';
         card.innerHTML = `
             <div class="app-info">
-                <strong>${app.company}</strong>
-                <span>${app.role}</span>
-                ${app.date ? `<span style="color:#999; font-size:12px;">Applied: ${app.date}</span>` : ''}
-                ${app.notes ? `<span style="color:#999; font-size:12px;">📝 ${app.notes}</span>` : ''}
+                <strong>${escapeHTML(app.company)}</strong>
+                <span>${escapeHTML(app.role)}</span>
+                ${app.date ? `<span style="color:#999; font-size:12px;">Applied: ${escapeHTML(app.date)}</span>` : ''}
+                ${app.notes ? `<span style="color:#999; font-size:12px;">📝 ${escapeHTML(app.notes)}</span>` : ''}
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
                 <select class="status-select ${getBadgeClass(app.status)}" data-index="${applications.indexOf(app)}">
