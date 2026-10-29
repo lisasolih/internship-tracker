@@ -1,5 +1,6 @@
 let applications = JSON.parse(localStorage.getItem('applications')) || [];
 let currentFilter = 'All';
+let currentSort = 'added'; 
 
 const STATUSES = ['Applied', 'Phone Screen', 'Interview', 'Offer', 'Rejected'];
 
@@ -10,6 +11,7 @@ const statusSelect = document.querySelector('select');
 const dateInput = document.getElementById('dateInput');
 const notesInput = document.getElementById('notesInput');
 const applicationsList = document.querySelector('.applications-section');
+const sortSelect = document.getElementById('sortSelect'); 
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -52,6 +54,11 @@ document.addEventListener('click', function(e) {
     }
 });
 
+sortSelect.addEventListener('change', function() {
+    currentSort = sortSelect.value;
+    renderApplications();
+});
+
 function getBadgeClass(status) {
     const classes = {
         'Applied': 'badge-applied',
@@ -73,6 +80,20 @@ function updateStats() {
     statCards[2].textContent = `Offers: ${offers}`;
 }
 
+function sortApplications(list) {
+    const sorted = [...list];
+    if (currentSort === 'added') return sorted;
+
+    const direction = currentSort === 'newest' ? -1 : 1;
+    sorted.sort((a, b) => {
+        if (!a.date && !b.date) return 0;
+        if (!a.date) return 1;   // applications with no date go last
+        if (!b.date) return -1;
+        return a.date.localeCompare(b.date) * direction;
+    });
+    return sorted;
+}
+
 function renderApplications() {
     updateStats();
 
@@ -85,7 +106,7 @@ function renderApplications() {
         ? applications
         : applications.filter(app => app.status === currentFilter);
 
-    filtered.forEach(function(app) {
+        sortApplications(filtered).forEach(function(app)  {
         const card = document.createElement('div');
         card.className = 'app-card';
         card.innerHTML = `

@@ -25,42 +25,49 @@
     <!-- Main content -->
     <div class="main">
 
-    <!-- Add application form -->
-    <section class="form-section">
-        <h2>Add Application</h2>
-        <form>
-            <input type="text" placeholder="Company name" />
-            <input type="text" placeholder="Role" />
-            <select>
-                <option>Applied</option>
-                <option>Phone Screen</option>
-                <option>Interview</option>
-                <option>Offer</option>
-                <option>Rejected</option>
-            </select>
-            <input type="date" id="dateInput" />
-            <input type="text" placeholder="Notes (optional)" id="notesInput" />
-            <button type="submit">Add</button>
-        </form>
-    </section>
+        <!-- Add application form -->
+        <section class="form-section">
+            <h2>Add Application</h2>
+            <form>
+                <input type="text" placeholder="Company name" />
+                <input type="text" placeholder="Role" />
+                <select>
+                    <option>Applied</option>
+                    <option>Phone Screen</option>
+                    <option>Interview</option>
+                    <option>Offer</option>
+                    <option>Rejected</option>
+                </select>
+                <input type="date" id="dateInput" />
+                <input type="text" placeholder="Notes (optional)" id="notesInput" />
+                <button type="submit">Add</button>
+            </form>
+        </section>
 
-    <!-- Filter buttons -->
-    <div class="filters">
-        <button class="filter-btn active" data-filter="All">All</button>
-        <button class="filter-btn" data-filter="Applied">Applied</button>
-        <button class="filter-btn" data-filter="Phone Screen">Phone Screen</button>
-        <button class="filter-btn" data-filter="Interview">Interview</button>
-        <button class="filter-btn" data-filter="Offer">Offer</button>
-        <button class="filter-btn" data-filter="Rejected">Rejected</button>
+        <!-- Filter buttons + sort -->
+        <div class="filters">
+            <button class="filter-btn active" data-filter="All">All</button>
+            <button class="filter-btn" data-filter="Applied">Applied</button>
+            <button class="filter-btn" data-filter="Phone Screen">Phone Screen</button>
+            <button class="filter-btn" data-filter="Interview">Interview</button>
+            <button class="filter-btn" data-filter="Offer">Offer</button>
+            <button class="filter-btn" data-filter="Rejected">Rejected</button>
+
+            <select id="sortSelect" class="sort-select">
+                <option value="added">Order added</option>
+                <option value="newest">Newest first</option>
+                <option value="oldest">Oldest first</option>
+            </select>
+        </div>
+
+        <!-- Applications list -->
+        <section class="applications-section">
+            <h2>My Applications</h2>
+            <p class="empty-state">No applications yet. Add one above!</p>
+        </section>
+
     </div>
 
-    <!-- Applications list -->
-    <section class="applications-section">
-        <h2>My Applications</h2>
-        <p class="empty-state">No applications yet. Add one above!</p>
-    </section>
-
-</div>
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

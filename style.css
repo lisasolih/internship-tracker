@@ -206,3 +206,14 @@ button:hover {
     background: #2d6a4f;
     color: white;
 }
+
+.sort-select {
+    flex: none;
+    min-width: 0;
+    margin-left: auto;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    background: #f0f0f0;
+    cursor: pointer;
+}
